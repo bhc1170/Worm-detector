@@ -2,40 +2,6 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-
-    - name: Run Bash Commands  # Step for running Bash commands
-      run: |
-        echo "Running bash commands"
-        echo "Current directory: $(pwd)"
-        ls -la
-        # Add more bash commands as needed
-
-    - name: Run Python script
-      run: python monitor_script.py
-name: Run Python Script
-
-on:
-  push:
     branches:
       - main
   pull_request:
@@ -53,15 +19,16 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.x'  # Replace with your required Python version
+        python-version: '3.9'  # Use the required Python version
 
     - name: Install dependencies
       run: |
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
     - name: List repository contents
       run: ls -R
 
     - name: Run monitor script
-      run: python path/to/monitor_script.py  # Adjust the path to the script as needed
+      run: python path/to/monitor_script.py  # Adjust the path as needed
 
