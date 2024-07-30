@@ -27,7 +27,11 @@ jobs:
         pip install -r requirements.txt
 
     - name: List repository contents
-      run: ls -R
+      run: |
+        echo "Contents of the root directory:"
+        ls -la
+        echo "Contents of the scripts directory:"
+        ls -la scripts  # Adjust this if your file is in a different subdirectory
 
     - name: Run monitor script
       run: python monitor_script.py  # Adjust the path as needed
