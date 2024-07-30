@@ -30,5 +30,4 @@ jobs:
       run: ls -R
 
     - name: Run monitor script
-      run: python path/to/monitor_script.py  # Adjust the path as needed
-
+      run: python monitor_script.py  # Adjust the path as needed
