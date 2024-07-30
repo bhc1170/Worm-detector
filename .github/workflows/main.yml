@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3  # Updated to v3
+    - uses: actions/checkout@v3
 
     - name: Set up Python
-      uses: actions/setup-python@v4  # Updated to v4
+      uses: actions/setup-python@v4
       with:
         python-version: '3.9'
 
@@ -23,11 +23,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run Bash Commands  # New step for Bash commands
+    - name: Run Bash Commands  # Step for running Bash commands
       run: |
         echo "Running bash commands"
         echo "Current directory: $(pwd)"
         ls -la
+        # Add more bash commands as needed
 
     - name: Run Python script
-      run: python monitor_script.py  # Update this path if needed
+      run: python monitor_script.py
+
