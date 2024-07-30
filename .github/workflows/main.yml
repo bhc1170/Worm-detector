@@ -30,5 +30,4 @@ jobs:
         ls -la
 
     - name: Run Python script
-      run: python monitor_script.py
-
+      run: python monitor_script.py  # Update this path if needed
