@@ -32,4 +32,36 @@ jobs:
 
     - name: Run Python script
       run: python monitor_script.py
+name: Run Python Script
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'  # Replace with your required Python version
+
+    - name: Install dependencies
+      run: |
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: List repository contents
+      run: ls -R
+
+    - name: Run monitor script
+      run: python path/to/monitor_script.py  # Adjust the path to the script as needed
 
