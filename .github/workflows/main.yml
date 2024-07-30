@@ -33,4 +33,14 @@ jobs:
         ls -la
 
     - name: Run monitor script
-      run: python monitor_script.py
+      run: |
+        echo "Running monitor_script.py..."
+        python monitor_script.py
+
+    - name: Additional Bash Commands
+      run: |
+        echo "Running additional Bash commands..."
+        # Add your custom Bash commands here
+        # Example: ./scripts/your_custom_script.sh
+        # Example: echo "Custom command executed"
+
