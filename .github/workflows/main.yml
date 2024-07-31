@@ -37,10 +37,14 @@ jobs:
         echo "Running monitor_script.py..."
         python monitor_script.py
 
+    - name: Run YARA Scan
+      run: |
+        echo "Running YARA scan..."
+        bash scripts/run_yara.sh
+
     - name: Additional Bash Commands
       run: |
         echo "Running additional Bash commands..."
         # Add your custom Bash commands here
         # Example: ./scripts/your_custom_script.sh
         # Example: echo "Custom command executed"
-
