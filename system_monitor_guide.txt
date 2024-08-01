@@ -1,0 +1,67 @@
+### Step-by-Step Guide for System Monitoring Script
+
+#### Objective
+Set up a Python script to monitor system CPU and disk usage and send email alerts if certain thresholds are exceeded using an app-specific password for a Gmail account.
+
+---
+
+### Steps Taken
+
+1. **Script Creation**:
+   - A Python script named `system_monitor_new.py` was created to monitor system metrics and send alerts via email.
+   - The script uses the `psutil` library to monitor CPU and disk usage and the `smtplib` library to send emails.
+
+2. **Environment Variable Setup**:
+   - An environment variable for the SMTP password was set in PowerShell to ensure secure handling of credentials.
+   - The environment variable `SMTP_PASSWORD` was set using the command:
+     ```powershell
+     $env:SMTP_PASSWORD="aauovogotiiegyuh"
+     ```
+
+3. **Script Execution**:
+   - The script was run from the PowerShell command line, and debugging information was checked to ensure it connected to the SMTP server and attempted to send an email.
+   - The initial tests showed that the CPU and disk usage were within limits, so no email was sent.
+
+4. **Threshold Adjustment for Testing**:
+   - The thresholds for CPU and disk usage were temporarily lowered in the script to force an alert for testing purposes.
+
+5. **Verification**:
+   - The script was run again with the adjusted thresholds to ensure that the email alert functionality worked correctly.
+
+---
+
+### Script Purpose
+
+- **Monitoring System Metrics**: The script monitors CPU and disk usage on a system.
+- **Sending Alerts**: If usage exceeds predefined thresholds, the script sends an email alert to a specified recipient.
+
+---
+
+### Next Steps
+
+1. **Threshold Adjustment**:
+   - After verifying the functionality, adjust the thresholds to appropriate values for your actual monitoring needs.
+
+2. **Deployment**:
+   - Decide where this script will run (e.g., a server, a desktop computer) and set up the environment to run the script periodically using a task scheduler or cron job.
+
+3. **Email Alerts**:
+   - Ensure the recipient email is configured correctly and can receive alerts promptly.
+
+4. **Logging and Reporting**:
+   - Consider adding logging to the script to keep a record of the metrics and alerts.
+   - Implement additional features such as logging to a file or generating periodic reports.
+
+5. **Security and Maintenance**:
+   - Regularly update the app-specific password and ensure that it remains secure.
+   - Maintain the script by updating dependencies and making improvements as needed.
+
+---
+
+### Summary of Commands and Code
+
+#### PowerShell Commands
+
+- Set environment variable:
+  ```powershell
+  $env:SMTP_PASSWORD="aauovogotiiegyuh"
