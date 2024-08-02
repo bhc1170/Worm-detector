@@ -1,4 +1,4 @@
-name: Worm Detection CI
+name: Python application
 
 on:
   push:
@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
@@ -25,26 +26,17 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    - name: List repository contents
+    - name: Lint with flake8
       run: |
-        echo "Contents of the root directory:"
-        ls -la
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+    - name: Test with pytest
+      run: |
+        pytest
 
     - name: Run monitor script
-      run: |
-        echo "Running monitor_script.py..."
-        python monitor_script.py
-
-    - name: Run YARA Scan
-      run: |
-        echo "Running YARA scan..."
-        bash scripts/run_yara.sh
-
-    - name: Additional Bash Commands
-      run: |
-        echo "Running additional Bash commands..."
-        # Add your custom Bash commands here
-        # Example: ./scripts/your_custom_script.sh
-        # Example: echo "Custom command executed"
+      run: python monitor_script.py
