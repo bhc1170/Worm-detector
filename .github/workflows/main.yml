@@ -48,3 +48,5 @@ jobs:
 
     - name: Verify Rust installation
       run: rustc --version
+      Add GitHub Actions workflow for Python application with Rust installation
+
