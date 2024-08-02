@@ -41,3 +41,10 @@ jobs:
     - name: Run monitor script
       run: python monitor_script.py
 
+    - name: Install Rust
+      run: |
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+        source $HOME/.cargo/env
+
+    - name: Verify Rust installation
+      run: rustc --version
