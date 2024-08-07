@@ -1,0 +1,6 @@
+import certifi
+import charset_normalizer
+import idna
+import numpy
+
+print("All packages are installed and imported successfully!")

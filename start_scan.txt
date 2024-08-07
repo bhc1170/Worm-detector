@@ -1,0 +1,54 @@
+import tkinter as tk
+from tkinter import messagebox
+from tkinter.ttk import Progressbar
+import threading
+from monitor_script import worm_detection_function  # Import your function
+
+# Function to perform the actual worm detection
+def start_scan():
+    scan_button.config(state=tk.DISABLED)
+    log_message("Starting scan...")
+
+    try:
+        result = worm_detection_function()  # Call your actual function
+        log_message(result)
+        messagebox.showinfo("Scan Status", "Scan completed successfully!")
+    except Exception as e:
+        log_message(f"Error: {str(e)}")
+        messagebox.showerror("Scan Status", f"Scan failed: {str(e)}")
+
+    scan_button.config(state=tk.NORMAL)
+
+# Function to add log messages
+def log_message(message):
+    log_text.config(state=tk.NORMAL)
+    log_text.insert(tk.END, message + "\n")
+    log_text.config(state=tk.DISABLED)
+
+# Function to run the scan in a separate thread
+def start_scan_thread():
+    threading.Thread(target=start_scan).start()
+
+# Set up the main application window
+root = tk.Tk()
+root.title("Worm Detector")
+
+# Create a label for the title
+title_label = tk.Label(root, text="Worm Detector", font=("Arial", 16))
+title_label.pack(pady=10)
+
+# Create a progress bar
+progress_var = tk.IntVar()
+progress_bar = Progressbar(root, variable=progress_var, maximum=100)
+progress_bar.pack(fill=tk.X, padx=20, pady=10)
+
+# Create a button to start the scan
+scan_button = tk.Button(root, text="Start Scan", command=start_scan_thread)
+scan_button.pack(pady=10)
+
+# Create a text widget to display logs
+log_text = tk.Text(root, state=tk.DISABLED, height=10)
+log_text.pack(fill=tk.BOTH, padx=20, pady=10)
+
+# Start the main application loop
+root.mainloop()
