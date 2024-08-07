@@ -1,0 +1,85 @@
+from zipfile import ZipFile
+import os
+
+# Define the directory structure and files
+project_name = "Worm-detector"
+base_dir = f"/mnt/data/{project_name}"
+os.makedirs(base_dir, exist_ok=True)
+
+# Create the directory structure
+os.makedirs(os.path.join(base_dir, "app", "templates"), exist_ok=True)
+os.makedirs(os.path.join(base_dir, "venv"), exist_ok=True)
+
+# Create the files with content
+files_content = {
+    "requirements.txt": """certifi==2024.7.4
+charset-normalizer==3.3.2
+idna==3.7
+numpy==2.0.1
+requests==2.32.3
+urllib3==2.2.2
+Flask==3.0.3
+Flask-JWT-Extended==4.6.0
+psutil==6.0.0
+scikit-learn==1.5.1
+scipy==1.14.0
+threadpoolctl==3.5.0
+Werkzeug==3.0.3
+yara-python==4.5.1
+""",
+    "run.py": """from app import create_app
+
+app = create_app()
+
+if __name__ == '__main__':
+    app.run(debug=True)
+""",
+    "app/__init__.py": """from flask import Flask
+
+def create_app():
+    app = Flask(__name__)
+    app.config['SECRET_KEY'] = 'your_secret_key'
+    
+    from .routes import main
+    app.register_blueprint(main)
+    
+    return app
+""",
+    "app/routes.py": """from flask import Blueprint, render_template
+
+main = Blueprint('main', __name__)
+
+@main.route('/')
+def index():
+    return render_template('index.html')
+""",
+    "app/templates/index.html": """<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Worm Detector</title>
+  </head>
+  <body>
+    <h1>Welcome to Worm Detector</h1>
+  </body>
+</html>
+"""
+}
+
+# Save the files
+for file_path, content in files_content.items():
+    full_path = os.path.join(base_dir, file_path)
+    os.makedirs(os.path.dirname(full_path), exist_ok=True)
+    with open(full_path, "w") as file:
+        file.write(content)
+
+# Create a zip file of the project
+zip_filename = f"/mnt/data/{project_name}.zip"
+with ZipFile(zip_filename, 'w') as zipf:
+    for root, dirs, files in os.walk(base_dir):
+        for file in files:
+            full_path = os.path.join(root, file)
+            relative_path = os.path.relpath(full_path, base_dir)
+            zipf.write(full_path, os.path.join(project_name, relative_path))
+
+zip_filename

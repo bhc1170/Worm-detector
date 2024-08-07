@@ -1,11 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Flask App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worm Detector</title>
 </head>
 <body>
-    <h1>Welcome to the Flask App</h1>
-    <a href="/about">About</a>
-    <a href="/scan">Scan</a>
+    <h1>Worm Detector</h1>
+    <form id="scan-form">
+        <input type="text" name="data" placeholder="Enter data to scan">
+        <button type="submit">Scan</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('scan-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const data = new FormData(event.target);
+            fetch('/scan', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ data: data.get('data') })
+            })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('result').innerText = JSON.stringify(result);
+            });
+        });
+    </script>
 </body>
 </html>

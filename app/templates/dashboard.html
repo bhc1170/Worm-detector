@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <h1>Welcome, {{ name }}</h1>
+    <div>
+      <h2>System Status</h2>
+      <!-- System status information will be displayed here -->
+    </div>
+    <div>
+      <h2>Threat Alerts</h2>
+      <!-- Threat alerts will be displayed here -->
+    </div>
+    <div>
+      <h2>Account Management</h2>
+      <a href="{{ url_for('main.logout') }}">Logout</a>
+    </div>
+  </body>
+</html>
