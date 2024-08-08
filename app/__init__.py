@@ -1,11 +1,9 @@
-from flask import Blueprint, render_template
+from flask import Flask
 
-main = Blueprint('main', __name__)
-
-@main.route('/')
-def index():
-    return render_template('index.html')
-
-@main.route('/dashboard')
-def dashboard():
-    return "Welcome to the dashboard!"
+def create_app():
+    app = Flask(__name__)
+    
+    from .routes import main
+    app.register_blueprint(main)
+    
+    return app
